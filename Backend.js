@@ -20,11 +20,10 @@ import * as TotalIncomeEarnings from "./App"
 
 // export const juice = `${TotalIncomeEarned.numSelf}343`
 
-export let xTotalNonSavings = 8600
-;
+export let xTotalNonSavings ;
 let xTotalSavings = 10000;
 let xTotalDividends  = 40000;
-export let xTotalIncome = 86000
+export let xTotalIncome;
 
 ; //= test (xTotalDividends + xTotalNonSavings +  xTotalSavings);
 
@@ -61,7 +60,7 @@ let higherRateNonsavings;
 (function () {  
 
 
-function calcNonSavingsBR() {
+ function calcNonSavingsBR(xTotalNonSavings,xTotalIncome) {
     if (xTotalNonSavings <= 12500 && xTotalIncome <= 100000){
       basicRateNonsavings = 37500  
     } else if (xTotalNonSavings >= 50000) {
@@ -80,7 +79,7 @@ function calcNonSavingsBR() {
        }
 };
 
-calcNonSavingsBR();
+calcNonSavingsBR ();
 
 })();
 
@@ -219,6 +218,17 @@ console.log(nonSavingstax);
 
  let psa;
 
+ let zeroSavingsrate;
+
+ function calczeroSavingsrate () {
+
+    if (xTotalNonSavings >= 17500) {zeroSavingsrate = 0}
+    else if (xTotalNonSavings <= 12500) { zeroSavingsrate = 5000}
+    else {zeroSavingsrate = 5000 - xTotalNonSavings - personalAllowance};
+ }
+
+ calczeroSavingsrate()
+
  function calcPSA() {
     
      if (xTotalIncome <= 50000) {
@@ -232,7 +242,9 @@ calcPSA()
 
 function calcSavingsTax20 (){ 
     
-    if ((taxat40 > 0)  || (xTotalIncome <= 12500) || (xTotalSavings == 0) || (xTotalSavings <= psa)) 
+    if ((taxat40 > 0)  || (xTotalIncome <= 12500) || (xTotalSavings == 0) || (xTotalSavings <= psa) || (xTotalNonSavings + xTotalNonSavings <= (psa + zeroSavingsrate + personalAllowance
+        ))
+        ) 
         { taxsavings20 = 0 } 
     
     else if (basicRateNonsavings == 37500 && xTotalIncome <= 125000 && (xTotalSavings - psa) <= basicRateNonsavings && xTotalIncome > 12500 ) {
